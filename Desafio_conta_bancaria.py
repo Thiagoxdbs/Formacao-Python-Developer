@@ -47,4 +47,4 @@ while True:
   else:
       print('Operação falhou! Digite uma opção valida!')
       continue
-print('FIM DO PROGRAMA')
+print('FIM DO PROGRAMA!')
