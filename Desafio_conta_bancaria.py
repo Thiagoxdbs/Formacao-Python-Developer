@@ -21,15 +21,15 @@ while True:
       print('Operação falhou! O valor informado está invalido')
       continue
   elif menu in 'Ss':
+    contsaq =+ 1
     valor = float(input("Digite o valor que ira retirar: "))
-    if valor <= saldo and valor <= 500 and contsaq < 3:
+    if contsaq < 3:
+      print("Já foram feitos três saques")
+      continue
+    elif valor <= saldo and valor <= 500 and contsaq < 3:
       saldo -= valor
       extrato += f'Saque de feito: \nR${valor:.2f}\n'
       print(f'Saldo:\n R$: {saldo}')
-      contsaq =+ 1
-      continue
-    elif contsaq == 3:
-      print("Já foram feitos três saques")
       continue
     elif valor > 500:
       print('Operação falhou! Permitido tirar no maximo R$: 500,00')
