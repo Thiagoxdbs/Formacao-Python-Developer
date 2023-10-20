@@ -10,6 +10,7 @@ while True:
     [ Q ]AIR DO PROGRAMA''')
   menu = (input('Escolha a opção no menu: '))
   print('-'*20)
+
   if menu in 'Dd':
     valor = float(input("Digite o valor do depósito: "))
     if valor > 0:
@@ -20,6 +21,7 @@ while True:
     else:
       print('Operação falhou! O valor informado está invalido')
       continue
+
   elif menu in 'Ss':
     contsaq =+ 1
     valor = float(input("Digite o valor que ira retirar: "))
@@ -37,6 +39,7 @@ while True:
     else:
       print('Operação falhou! Conta não possuí o valor requerido!')
       continue
+
   elif menu in 'Ee':
     print(extrato)
     print(f'Saldo:\n R$: {saldo}')
@@ -47,4 +50,5 @@ while True:
   else:
       print('Operação falhou! Digite uma opção valida!')
       continue
+  
 print('FIM DO PROGRAMA!')
