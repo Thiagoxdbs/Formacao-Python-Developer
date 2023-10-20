@@ -27,12 +27,25 @@ def movimentacao_conta(conta):
     print(f'Saldo:\n R$: {saldo:.2f}')
 
 while True:
-  print('''MENU
-    [ D ]EPOSITAR
-    [ S ]ACAR
-    [ E ]XTRATO
-    [ Q ]AIR DO PROGRAMA''')
-  menu = (input('Escolha a opção no menu: '))
-  print('-'*20)
+    print('''MENU
+        [ D ]EPOSITAR
+        [ S ]ACAR
+        [ E ]XTRATO
+        [ Q ]AIR DO PROGRAMA''')
+    menu = (input('Escolha a opção no menu: ')).upper()
+    print('-'*20)
 
-  
+    DEPOSITAR_MENU = menu[0] == 'D'
+    SACAR_MENU = menu[0] == 'S'
+    EXTRATO_MENU = menu[0] == 'E'
+    SAIR_MENU = menu[0] == 'Q'
+    
+    if DEPOSITAR_MENU:
+        ...
+    elif SACAR_MENU:
+        ...
+    elif EXTRATO_MENU:
+        ...
+    elif SAIR_MENU:
+        ...
+    else:
