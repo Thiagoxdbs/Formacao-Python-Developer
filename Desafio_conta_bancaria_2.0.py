@@ -1,6 +1,12 @@
 TASK = False
-user = list()
 VALIDACAO_LOGIN = False
+user = {'nome': '',
+        'logradouro': '',
+        'bairro': '',
+        'usuario': '',
+        'senha': ''
+        }
+
 saldo = 0
 extrato = list()
 contsaq = 0
@@ -34,16 +40,17 @@ def cadastrando(confirmacao):
     confirmacao_cadastro = str(input(confirmacao)).upper().lstrip()
     validacao_cadastro = confirmacao_cadastro[0] == 'S'
     if validacao_cadastro:
-        user.append(str(input('Nome: \n')))  # NOME
-        user.append(str(input('Data de Nascimento: \n')))  # datanascimento
-        user.append(str(input('CPF: \n')).strip('.'))  # CPF
-        logradouro = str(input('Local: \n'))
-        bairro = str(input('Bairro: \n'))
-        cidade = str(input('Cidade: \n'))
-        estado = str(input('Estado: \n'))
-        user.append(f'{logradouro} - {bairro} - {cidade}/{estado}')  # ENDERECO
-        user.append(str(input('Usuario: \n')))
-        user.append(str(input('Senha: \n')))
+        user['nome'] = str(input('Nome:\n'))
+        user['cpf'] = str(input('CPF: \n')).strip('.')
+        logradouro_user = str(input('Local: \n'))
+        bairro_user = str(input('Bairro: \n'))
+        cidade_user = str(input('Cidade: \n'))
+        estado_user = str(input('Estado: \n'))
+        endereço = f'{logradouro_user} - {bairro_user} - {cidade_user}/{estado_user}'
+        user['endereço'] = f'{endereço}'
+        user['usuario'] = str(input('Usuario: \n'))
+        user['senha'] = str(input('Senha: \n'))
+        TASK = True
         return user
     else:
         print("Voltando para o INICIO!")
@@ -105,7 +112,7 @@ while True:
         login_user = str(input('Digite seu Usuario: \n'))
         senha_user = str(input('Digite sua Senha: \n'))
         if TASK:
-            VALIDACAO_LOGIN = user[-1] == senha_user and user[-2] == login_user
+            VALIDACAO_LOGIN = user['senha'] == senha_user and user['usuario'] == login_user
         if VALIDACAO_LOGIN:
             print('LOGADO COM SUCESSO!')
             break
