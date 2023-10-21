@@ -106,8 +106,6 @@ while True:
     sair = opcao_cad_log == 'S'
     if cadastro:
         user = cadastrando('Deseja criar uma conta nova? \n')
-        print(user)
-        continue
     elif login:
         login_user = str(input('Digite seu Usuario: \n'))
         senha_user = str(input('Digite sua Senha: \n'))
