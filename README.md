@@ -25,7 +25,7 @@ Tendo alguns requisitos, eles são:
                                          [C]adastro
                                          [S]air
                                 
-                                ------------------------------------------------------
+                                ___________________________________________
                                 
                                       Deseja abrir sua primeira conta?
                                              s
@@ -50,19 +50,19 @@ Tendo alguns requisitos, eles são:
                                              Digite sua Senha:
                                              
                                              LOGADO COM SUCESSO!
-                                ------------------------------------------------------
+                                ___________________________________________
                                 
                                        Deseja criar mais uma conta bancaria?
                                               [S]im
                                               [N]ão
                                         
-                                ------------------------------------------------------
+                                ___________________________________________
                                 
                                        Conta criada com SUCESSO! --> ID_1
                                               Saldo
                                               R$: 0.00
                                               
-                                ------------------------------------------------------
+                                ___________________________________________
                                 
                                 
                                        Conta --> ID_0 - Digite [1]
@@ -74,7 +74,7 @@ Tendo alguns requisitos, eles são:
                                        Qual conta deseja acessar?
                                 
                                 
-                                ------------------------------------------------------
+                                ___________________________________________
                                 
                                        MENU
                                                    [ D ]EPOSITAR
@@ -84,7 +84,7 @@ Tendo alguns requisitos, eles são:
                                        
                                        Escolha a opção no menu:
                                 
-                                ------------------------------------------------------
+                                ___________________________________________
 
 Desafio Conta Bancaria 2.0
 Desafio pede para criar uma conta bancaria, aonde pode se cadastrar, criar mais de uma conta bancaria, logar na conta, depositar, sacar, tirar extrato do que foi feito na conta e sair do programa.
