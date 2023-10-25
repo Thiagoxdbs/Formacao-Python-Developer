@@ -90,7 +90,16 @@ def cadastrando(confirmacao):
         criar_conta_bancaria = input('Deseja criar mais uma conta bancaria? \n[S]im \n[N]ão\n').upper().lstrip(' ')
         validacao_conta_bancaria = criar_conta_bancaria == 'S'
         if validacao_conta_bancaria:
-            ...
+            VALIDAR_BREAK = True
+            for c in user['contas']:
+                VALIDACAO_Q_CONTA = int(user['contas'][c]['ID']) == 0
+                if VALIDACAO_Q_CONTA and VALIDAR_BREAK:
+                    user['contas'][c]['ID'] = c
+                    print(f'Conta criada com SUCESSO! --> {c}')
+                    saldo = user['contas'][c]['saldo']
+                    print(f'Saldo\nR$: {saldo:.2f}')
+                    VALIDAR_BREAK = False
+
     else:
         print("Voltando para o INICIO!")
 
@@ -102,12 +111,12 @@ def sub(conta):
     saque_valor = float(input(conta))
     #VERIFICAR
     for c in user['contas']:
-        if conta_id == c:
+        if CONTA_ID == c:
             validacao_saque = saque_valor <=  user['contas'][c]['saldo'] and saque_valor > 0
     VALIDACAO_QUANTIDADE = contsaq <= 3
     if validacao_saque and VALIDACAO_QUANTIDADE:
         for c in user['contas']:
-            if conta_id == c:
+            if CONTA_ID == c:
                 saldo = int(user['contas'][c]['saldo'])
                 saldo -= saque_valor
                 print(f'Saldo:\n R$: {saldo:.2f}')
@@ -128,7 +137,7 @@ def soma(conta):
     deposito_valor = float(input())
     if deposito_valor > 0:
         for c in user['contas']:
-            if conta_id == c:
+            if CONTA_ID == c:
                 saldo = int(user['contas'][c]['saldo'])
                 saldo = + deposito_valor
                 extra = f'Deposito\n{saldo:.2f}'
@@ -143,7 +152,7 @@ def movimentacao_conta(conta):
     print(conta)
     for e in range(len(user['extrato'])):
         for c in user['contas']:
-            if conta_id == c:
+            if CONTA_ID == c:
                 print(int(user['contas'][c]['extrato'])[e])
                 saldo = int(user['contas'][c]['saldo'])
                 print(f'Saldo\nR$: {saldo:.2f}')
@@ -191,13 +200,13 @@ while VALIDACAO_LOGIN:
     CONTAGEM = 0
     for c in user['contas']:
         CONTAGEM += 1
-        validacao_q_conta_ = int(user['contas'][c]['ID']) > 0
-        if validacao_q_conta_:
+        VALIDACAO_Q_CONTA = int(user['contas'][c]['ID']) > 0
+        if VALIDACAO_Q_CONTA:
             print(f'Conta --> {c} - Digite [{CONTAGEM}]')
             saldo = user['contas'][c]['saldo']
             print(f'Saldo\nR$: {saldo:.2f}')
     conta = int(input('Qual conta deseja acessar?\n'))
-    conta_id = conta - 1
+    CONTA_ID = conta - 1
     print('''MENU
         [ D ]EPOSITAR
         [ S ]ACAR
@@ -224,7 +233,7 @@ while VALIDACAO_LOGIN:
     elif SAIR_MENU:
         print(f'Saldo \n R$: ')
         for c in user['contas']:
-            if conta_id == c:
+            if CONTA_ID == c:
                 saldo = int(user['contas'][c]['saldo'])
                 print(f'{saldo:.2f}')
         break
