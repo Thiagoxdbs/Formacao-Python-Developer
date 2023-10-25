@@ -61,9 +61,11 @@ def cadastro_login(opcao):
                     valor_cadastro_login = str(input(opcao)).upper().lstrip(" ")
                     print("-"*len(opcao))
                     VALIDACAO_CAD_LOG = valor_cadastro_login[0] == 'L' or valor_cadastro_login[0] == 'C'
+                    print('-'*20)
             return valor_cadastro_login[0]
         except:
             print('ERRO INESPERADO!')
+            print('-'*20)
 
 # Cadastrando
 
@@ -96,8 +98,10 @@ def cadastrando(confirmacao):
             return user
         else:
             print("Voltando para o INICIO!")
+            print('-'*20)
     except:
         print('ERRO INESPERADO!')
+        print('-'*20)
 def criacao_conta(conta):
     global CONTAS_QUANTIDADE
     global CONTAS_FOR
@@ -113,7 +117,7 @@ def criacao_conta(conta):
                         saldo = user['contas'][id]['saldo']
                         print(f'Saldo\nR$: {saldo:.2f}')
                         CONTAS_QUANTIDADE += 1
-                        print(user)
+                        print('-'*20)
                         break
                     CONTAS_FOR += 1
                 CONTAS_FOR = 0
@@ -121,6 +125,7 @@ def criacao_conta(conta):
                 break
     except:
         print('ERRO INESPERADO!')
+        print('-'*20)
 # SAQUE
 
 
@@ -147,13 +152,17 @@ def sub(conta):
                         extrato = f'Deposito\n{saldo:.2f}'
                         user['contas'][c]['extrato'].append(extrato)
                         VAL = False
+                        print('-'*20)
         elif VALIDACAO_QUANTIDADE == False:
             print('Já foram feitos 3 saques')
+            print('-'*20)
         else:
             print('Não é existe o valor solicitado!')
+            print('-'*20)
         return user
     except:
         print('ERRO INESPERADO!')
+        print('-'*20)
 # DEPOSITO
 
 
@@ -173,15 +182,17 @@ def soma(conta):
                         user['contas'][c]['extrato'].append(extrato)
                         print(f'Saldo:\n R$: {saldo:.2f}')
                         VAL = False
+                        print('-'*20)
         return user
     except:
         print('ERRO INESPERADO!')
-
+        print('-'*20)
 # EXTRATO
 
 
 def movimentacao_conta(conta):
     print(conta)
+    print('-'*20)
     cont = 0
     try:
         for e in user['contas']:        
@@ -191,14 +202,18 @@ def movimentacao_conta(conta):
             cont += 1
         saldo = int(user['contas'][e]['saldo'])
         print(f'Saldo\nR$: {saldo:.2f}')
+        print('-'*20)
+        print('-'*20)
         return user
     except:
         print('ERRO INESPERADO!')
+        print('-'*20)
 
 while True:
     try:
         opcao_cad_log = cadastro_login(
             "Digite uma opção:\n \n[L]OGIN \n[C]adastro \n[S]air\n\n --> ")
+        print('-'*20)
         cadastro = opcao_cad_log == 'C'
         login = opcao_cad_log == 'L'
         sair = opcao_cad_log == 'S'
@@ -211,30 +226,36 @@ while True:
                 VALIDACAO_LOGIN = user['senha'] == senha_user and user['usuario'] == login_user
             if VALIDACAO_LOGIN:
                 print('LOGADO COM SUCESSO!')
+                print('-'*20)
                 break
             else:
                 while True:
                     login_user = str(
                         input('USUARIO OU LOGIN INVALIDOS!\nDigite seu Usuario: \n'))
                     senha_user = str(input('Digite sua Senha: \n'))
+                    print('-'*20)
                     if VALIDACAO_LOGIN:
                         print('LOGADO COM SUCESSO!')
+                        print('-'*20)
                         break
                     else:
                         print('Usuario ou senha incorretos!')
                         continuar = str(
                             input('Quer tentar novamente: \n')).upper().lstrip(' ')
+                        print('-'*20)
                         if continuar == 'S':
                             continue
                         else:
                             break
         elif VALIDACAO_LOGIN:
             print('LOGADO COM SUCESSO!')
+            print('-'*20)
             break
         elif sair:
             break
     except:
         print('ERRO INESPERADO!')
+        print('-'*20)
 
 # CONTAS
 if VALIDACAO_LOGIN:
@@ -277,6 +298,7 @@ while VALIDACAO_LOGIN:
                 sub(f'Informe o valor do Saque: \nR$:')
             else:
                 print('Não é possivel fazer mais saques, foram feitos 3 saques.')
+                print('-'*20)
         elif EXTRATO_MENU:
             movimentacao_conta('Extrato:\n')
         elif SAIR_MENU:
@@ -285,8 +307,11 @@ while VALIDACAO_LOGIN:
                 if CONTA_ID == c:
                     saldo = int(user['contas'][c]['saldo'])
                     print(f'{saldo:.2f}')
+                    print('-'*20)
             break
         else:
             print('OPÇÃO INVALIDA')
+            print('-'*20)
     except:
         print('ERRO INESPERADO!')
+        print('-'*20)
