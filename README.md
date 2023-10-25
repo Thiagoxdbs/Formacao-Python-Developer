@@ -28,7 +28,7 @@ Tendo alguns requisitos, eles são:
                                 ___________________________________________
                                 
                                       Deseja abrir sua primeira conta?
-                                             s
+                                             
                                                Nome:
                                              
                                                CPF:
