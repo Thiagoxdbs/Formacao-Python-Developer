@@ -1,7 +1,3 @@
-from random import randint
-
-TASK = False
-VALIDACAO_LOGIN = False
 user = {'nome': '',
         'logradouro': '',
         'bairro': '',
@@ -38,28 +34,33 @@ user = {'nome': '',
                             'saldo' :  0,
                             'extrato' : list()}}
         }
-
+TASK = False
+VALIDACAO_LOGIN = False
 contsaq = 0
+CONTA_TRUE = True
+LOGADO = True
+CONTAS_QUANTIDADE = 0
+CONTAS_FOR = 0
 
 # Login
 
 
 def cadastro_login(opcao):
-    valor_cadastro_login = str(input(opcao)).upper().lstrip(" ")
-    print("-"*len(opcao))
-    VALIDACAO_CAD_LOG = valor_cadastro_login[0] == 'L' or valor_cadastro_login[
-        0] == 'C' or valor_cadastro_login[0] == 'S'
-    while True:
-        if VALIDACAO_CAD_LOG:
-            break
-        else:
-            print("-"*len(opcao))
-            print('\nERRO!\nDigite uma opção valida\n')
-            print("-"*len(opcao))
-            valor_cadastro_login = str(input(opcao)).upper().lstrip(" ")
-            print("-"*len(opcao))
-            VALIDACAO_CAD_LOG = valor_cadastro_login[0] == 'L' or valor_cadastro_login[0] == 'C'
-    return valor_cadastro_login[0]
+        valor_cadastro_login = str(input(opcao)).upper().lstrip(" ")
+        print("-"*len(opcao))
+        VALIDACAO_CAD_LOG = valor_cadastro_login[0] == 'L' or valor_cadastro_login[
+            0] == 'C' or valor_cadastro_login[0] == 'S'
+        while True:
+            if VALIDACAO_CAD_LOG:
+                break
+            else:
+                print("-"*len(opcao))
+                print('\nERRO!\nDigite uma opção valida\n')
+                print("-"*len(opcao))
+                valor_cadastro_login = str(input(opcao)).upper().lstrip(" ")
+                print("-"*len(opcao))
+                VALIDACAO_CAD_LOG = valor_cadastro_login[0] == 'L' or valor_cadastro_login[0] == 'C'
+        return valor_cadastro_login[0]
 
 # Cadastrando
 
@@ -67,6 +68,8 @@ def cadastro_login(opcao):
 def cadastrando(confirmacao):
     global user
     global TASK
+    global CONTAS_QUANTIDADE
+    global CONTAS_FOR
     confirmacao_cadastro = str(input(confirmacao)).upper().lstrip()
     validacao_cadastro = confirmacao_cadastro[0] == 'S'
     if validacao_cadastro:
@@ -84,21 +87,22 @@ def cadastrando(confirmacao):
                 'saldo' :  0,
                 'extrato' : list(),
                 }
+        CONTAS_QUANTIDADE = 1
         TASK = True
         return user
     elif True is not validacao_cadastro:
         criar_conta_bancaria = input('Deseja criar mais uma conta bancaria? \n[S]im \n[N]ão\n').upper().lstrip(' ')
         validacao_conta_bancaria = criar_conta_bancaria == 'S'
         if validacao_conta_bancaria:
-            VALIDAR_BREAK = True
             for c in user['contas']:
-                VALIDACAO_Q_CONTA = int(user['contas'][c]['ID']) == 0
-                if VALIDACAO_Q_CONTA and VALIDAR_BREAK:
-                    user['contas'][c]['ID'] = c
+                if CONTAS_QUANTIDADE == CONTAS_FOR:
+                    user['contas'][c]['ID'] = CONTAS_QUANTIDADE
                     print(f'Conta criada com SUCESSO! --> {c}')
                     saldo = user['contas'][c]['saldo']
                     print(f'Saldo\nR$: {saldo:.2f}')
-                    VALIDAR_BREAK = False
+                    CONTAS_QUANTIDADE += 1
+                CONTAS_FOR += 1
+            CONTAS_FOR = 0
 
     else:
         print("Voltando para o INICIO!")
@@ -108,20 +112,26 @@ def cadastrando(confirmacao):
 
 def sub(conta):
     global user
+    global VALIDACAO_QUANTIDADE
+    VAL = True
     saque_valor = float(input(conta))
     #VERIFICAR
+    CONT = 0
     for c in user['contas']:
-        if CONTA_ID == c:
+        if CONTA_ID == CONT:
             validacao_saque = saque_valor <=  user['contas'][c]['saldo'] and saque_valor > 0
+        CONT += 1
     VALIDACAO_QUANTIDADE = contsaq <= 3
     if validacao_saque and VALIDACAO_QUANTIDADE:
         for c in user['contas']:
-            if CONTA_ID == c:
-                saldo = int(user['contas'][c]['saldo'])
-                saldo -= saque_valor
-                print(f'Saldo:\n R$: {saldo:.2f}')
-                extra = f'Deposito\n{saldo:.2f}'
-                int(user['contas'][c]['extrato']).append(extra)
+            for e in range(9):
+                if CONTA_ID == e and VAL:
+                    user['contas'][c]['saldo'] -= saque_valor
+                    saldo = int(user['contas'][c]['saldo'])
+                    print(f'Saldo:\n R$: {saldo:.2f}')
+                    extrato = f'Deposito\n{saldo:.2f}'
+                    user['contas'][c]['extrato'].append(extrato)
+                    VAL = False
     elif VALIDACAO_QUANTIDADE == False:
         print('Já foram feitos 3 saques')
     else:
@@ -134,15 +144,18 @@ def sub(conta):
 def soma(conta):
     print(conta)
     global saldo
+    VAL = True
     deposito_valor = float(input())
     if deposito_valor > 0:
         for c in user['contas']:
-            if CONTA_ID == c:
-                saldo = int(user['contas'][c]['saldo'])
-                saldo = + deposito_valor
-                extra = f'Deposito\n{saldo:.2f}'
-                int(user['contas'][c]['extrato']).append(extra)
-                print(f'Saldo:\n R$: {saldo:.2f}')
+            for e in range(9):
+                if CONTA_ID == e and VAL:
+                    user['contas'][c]['saldo'] += deposito_valor
+                    saldo = user['contas'][c]['saldo']
+                    extrato = f'Deposito\n{saldo:.2f}'
+                    user['contas'][c]['extrato'].append(extrato)
+                    print(f'Saldo:\n R$: {saldo:.2f}')
+                    VAL = False
     return user
 
 # EXTRATO
@@ -150,13 +163,15 @@ def soma(conta):
 
 def movimentacao_conta(conta):
     print(conta)
-    for e in range(len(user['extrato'])):
-        for c in user['contas']:
-            if CONTA_ID == c:
-                print(int(user['contas'][c]['extrato'])[e])
-                saldo = int(user['contas'][c]['saldo'])
-                print(f'Saldo\nR$: {saldo:.2f}')
-
+    cont = 0
+    for e in user['contas']:        
+        if CONTA_ID == cont:
+            extra = user['contas'][e]['extrato'][cont]
+            print(extra)
+        cont += 1
+    saldo = int(user['contas'][e]['saldo'])
+    print(f'Saldo\nR$: {saldo:.2f}')
+    return user
 
 while True:
     opcao_cad_log = cadastro_login(
@@ -198,14 +213,18 @@ while True:
 
 while VALIDACAO_LOGIN:
     CONTAGEM = 0
-    for c in user['contas']:
-        CONTAGEM += 1
-        VALIDACAO_Q_CONTA = int(user['contas'][c]['ID']) > 0
-        if VALIDACAO_Q_CONTA:
-            print(f'Conta --> {c} - Digite [{CONTAGEM}]')
-            saldo = user['contas'][c]['saldo']
-            print(f'Saldo\nR$: {saldo:.2f}')
-    conta = int(input('Qual conta deseja acessar?\n'))
+    if LOGADO:
+        for c in user['contas']:
+            CONTAGEM += 1
+            VALIDACAO_Q_CONTA = int(user['contas'][c]['ID']) > 0
+            if VALIDACAO_Q_CONTA:
+                print(f'Conta --> {c} - Digite [{CONTAGEM}]')
+                saldo = user['contas'][c]['saldo']
+                print(f'Saldo\nR$: {saldo:.2f}')
+                LOGADO = False
+    if CONTA_TRUE:
+        conta = int(input('Qual conta deseja acessar?\n'))
+        CONTA_TRUE = False
     CONTA_ID = conta - 1
     print('''MENU
         [ D ]EPOSITAR
