@@ -138,7 +138,8 @@ def sub(conta):
     CONT = 0
     try:
         for c in user['contas']:
-            if CONTA_ID == CONT:
+            validar = CONTA_ID == CONT
+            if validar:
                 validacao_saque = saque_valor <=  user['contas'][c]['saldo'] and saque_valor > 0
             CONT += 1
         VALIDACAO_QUANTIDADE = contsaq <= 3
@@ -302,12 +303,15 @@ while VALIDACAO_LOGIN:
         elif EXTRATO_MENU:
             movimentacao_conta('Extrato:\n')
         elif SAIR_MENU:
+            CONT = 0
             print(f'Saldo \n R$: ')
             for c in user['contas']:
-                if CONTA_ID == c:
+                if CONTA_ID == CONT:
                     saldo = int(user['contas'][c]['saldo'])
                     print(f'{saldo:.2f}')
                     print('-'*20)
+                    CONT += 1
+                    break
             break
         else:
             print('OPÇÃO INVALIDA')
